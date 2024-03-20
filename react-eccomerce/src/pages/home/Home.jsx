@@ -6,6 +6,7 @@ import Collections from './Collections'
 import BestSellers from './BestSellers'
 import NewLetters from './NewLetters'
 
+
 const Home = () => {
   return (
     <div>
