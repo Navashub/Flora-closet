@@ -1,38 +1,77 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaFilter } from 'react-icons/fa'
+import Cards from '../../components/Cards';
 
 const Products = () => {
-  return (
-    <div className='max-w-screen-2xl container mx-auto xl:px-28 px-4 mb-12'>
-        <h2 className='text-3xl font-semibold capitalize text-center my-8'>Or subscribe to the newsletter</h2>
+    const [products, setProducts] = useState([]);
+    const [filteredItems, setFilteredItems] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [sortOption, setSortOption] = useState("default");
 
-        {/*Products cards */}
-        <div>
+    useEffect (() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("/products.json")
+                const data = await response.json();
+                setProducts(data)
+                setFilteredItems(data)
+            }catch (error) {
+                console.log("Error fetching data:", error)
+            }
+        }
 
-            {/*All buttons */}
-            <div className='flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap'>
-                <button>All Products</button>
-                <button>CLothing</button>
-                <button>Hoodies</button>
-                <button>Bags</button>
-            </div>
+        fetchData();
+    },[])
 
-            {/*Sorting options */}
+    //console.log(products)
+
+    // filtering functions
+    const filterItems = (category) => {
+        const filtered = category === "all" ? (products) : products.filter((item) => item.category === category);
+
+        setFilteredItems(filtered);
+        setSelectedCategory(category);
+    }
+
+    //show all products
+    const showAll = () => {
+        setFilteredItems(products);
+        selectedCategory("all");
+    }
+    return (
+        <div className='max-w-screen-2xl container mx-auto xl:px-28 px-4 mb-12'>
+            <h2 className='text-3xl font-semibold capitalize text-center my-8'>Or subscribe to the newsletter</h2>
+
+            {/*Products cards */}
             <div>
-                <div className='bg-black p-2'>
-                    <FaFilter className='text-white h-4 w-4'/>
+                <div className='flex flex-col md:flex-row flex-wrap md:justify-between items-center space-y-3 mb-8'>
+                    {/*All buttons */}
+                    <div className='flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap'>
+                        <button onClick={showAll}>All Products</button>
+                        <button onClick={() => filterItems("Dress")}>CLothing</button>
+                        <button onClick={() => filterItems("Hoodies")}>Hoodies</button>
+                        <button onClick={() => filterItems("Bag")}>Bags</button>
+                    </div>
+
+                    {/*Sorting options */}
+                    <div className='flex justify-end mb-4 rounded-sm'>
+                        <div className='bg-black p-2'>
+                            <FaFilter className='text-white h-4 w-4' />
+                        </div>
+                        <select className='bg-black text-white px-2 py-1 rounded-sm'>
+                            <option value="Default">Default</option>
+                            <option value="A-Z">A-Z</option>
+                            <option value="Z-A">Z-A</option>
+                            <option value="low-to-high">low-to-high</option>
+                            <option value="high-to-low">high-to-low</option>
+                        </select>
+                    </div>
                 </div>
-                <select>
-                    <option value="Default">Default</option>
-                    <option value="A-Z">A-Z</option>
-                    <option value="Z-A">Z-A</option>
-                    <option value="low-to-high">low-to-high</option>
-                    <option value="high-to-low">high-to-low</option>
-                </select>
+
+                <Cards filteredItems={filteredItems}/>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Products
