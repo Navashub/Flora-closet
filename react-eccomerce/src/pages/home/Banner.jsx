@@ -11,7 +11,7 @@ const Banner = () => {
                 </div>
                 <div className='md:w-1/2'>
                     <h1 className='text-5xl font-light mb-5'>Collections</h1>
-                    <p className='text-xl mb-7'>you can explore and shop many different collection from various brands here.</p>
+                    <p className='text-xl mb-7'>You can explore and shop many different collection from various brands here.</p>
                     <button className='bg-Black hover:bg-orange-500 px-6 py-2 text-white font-semibold rounded-sm flex items-center gap-2'>
                         <FaShoppingBag className='inline-flex' />Shop Now</button>
                 </div>
