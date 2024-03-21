@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaShoppingBag } from "react-icons/fa";
-import logo from '/logo.png'
+import logo from '/logo1.png'
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
                 <FaSearch className='text-Black w-5 h-5 cursor-pointer hidden md:block'/>
 
                 {/* logo */}
-                <a href='/'><img src={logo} alt='' /></a>
+                <a href='/'><img src={logo} alt='' className='w-20 h-20 '/></a>
 
                 {/*accont and shopping button */}
                 <div className='text-lg text-Black sm:flex items-center gap-4 hidden'>
